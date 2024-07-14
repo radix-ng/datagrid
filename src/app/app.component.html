@@ -1,3 +1,8 @@
-<div class="container">
-    <router-outlet></router-outlet>
+<div class="relative flex min-h-screen flex-col">
+    <app-site-header></app-site-header>
+    <main class="flex-1">
+        <section class="grid items-center pb-8 pt-6 md:py-8 container gap-2">
+            <router-outlet></router-outlet>
+        </section>
+    </main>
 </div>
