@@ -3,140 +3,130 @@
 
     <div class="rounded-md border">
         <table Table>
-        <thead TableHeader>
-            @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+            <thead TableHeader>
+                @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
                 <tr TableRow>
                     @for (header of headerGroup.headers; track header.id) {
-                        <th TableHead [attr.colSpan]="header.colSpan">
-                            @if (!header.isPlaceholder) {
-                                <div
-                                        [ngClass]="{
+                    <th TableHead [attr.colSpan]="header.colSpan">
+                        @if (!header.isPlaceholder) {
+                        <div
+                            [ngClass]="{
                     'cursor-pointer select-none': header.column.getCanSort(),
                   }"
-                                >
-                                    <ng-container
-                                            *flexRender="
+                        >
+                            <ng-container
+                                *flexRender="
                       header.column.columnDef.header;
                       props: header.getContext();
                       let headerCell
                     "
-                                    >
-                                        {{ headerCell }}
-                                    </ng-container>
+                            >
+                                {{ headerCell }}
+                            </ng-container>
 
-                                    @if (header.column.getIsSorted() === 'asc') {
-                                        <span> 🔼</span>
-                                    }
-                                    @if (header.column.getIsSorted() === 'desc') {
-                                        <span> 🔽</span>
-                                    }
-                                </div>
-
-                                @if (header.column.getCanFilter()) {
-                                    <div>
-                                        <app-table-filter
-                                                [column]="header.column"
-                                                [table]="table"
-                                        />
-                                    </div>
-                                }
+                            @if (header.column.getIsSorted() === 'asc') {
+                            <span>🔼</span>
+                            } @if (header.column.getIsSorted() === 'desc') {
+                            <span>🔽</span>
                             }
-                        </th>
+                        </div>
+
+                        @if (header.column.getCanFilter()) {
+                        <div>
+                            <app-table-filter [column]="header.column" [table]="table" />
+                        </div>
+                        } }
+                    </th>
                     }
                 </tr>
-            }
-        </thead>
-        <tbody TableBody>
-            @for (row of table.getRowModel().rows; track row.id) {
+                }
+            </thead>
+            <tbody TableBody>
+                @for (row of table.getRowModel().rows; track row.id) {
                 <tr TableRow>
                     @for (cell of row.getVisibleCells(); track cell.id) {
-                        <td TableCell>
-                            <ng-container
-                                    *flexRender="
+                    <td TableCell>
+                        <ng-container
+                            *flexRender="
                   cell.column.columnDef.cell;
                   props: cell.getContext();
                   let renderCell
                 "
-                            >
-                                {{ renderCell }}
-                            </ng-container>
-                        </td>
+                        >
+                            {{ renderCell }}
+                        </ng-container>
+                    </td>
                     }
                 </tr>
-            }
-        </tbody>
-    </table>
+                }
+            </tbody>
+        </table>
     </div>
 
     <div class="h-2"></div>
     <div class="flex items-center gap-2">
-        <button shButton
-                size="sm"
-                variant="outline"
-                (click)="table.setPageIndex(0)"
-                [disabled]="!table.getCanPreviousPage()"
+        <button
+            shButton
+            size="sm"
+            variant="outline"
+            (click)="table.setPageIndex(0)"
+            [disabled]="!table.getCanPreviousPage()"
         >
             <<
         </button>
         <button
-                shButton
-                size="sm"
-                variant="outline"
-                (click)="table.previousPage()"
-                [disabled]="!table.getCanPreviousPage()"
+            shButton
+            size="sm"
+            variant="outline"
+            (click)="table.previousPage()"
+            [disabled]="!table.getCanPreviousPage()"
         >
             <
         </button>
         <button
-                shButton
-                size="sm"
-                variant="outline"
-                (click)="table.nextPage()"
-                [disabled]="!table.getCanNextPage()"
+            shButton
+            size="sm"
+            variant="outline"
+            (click)="table.nextPage()"
+            [disabled]="!table.getCanNextPage()"
         >
             >
         </button>
         <button
-                shButton
-                size="sm"
-                variant="outline"
-                (click)="table.setPageIndex(table.getPageCount() - 1)"
-                [disabled]="!table.getCanNextPage()"
+            shButton
+            size="sm"
+            variant="outline"
+            (click)="table.setPageIndex(table.getPageCount() - 1)"
+            [disabled]="!table.getCanNextPage()"
         >
             >>
         </button>
         <span class="flex items-center gap-1">
-      <div>Page</div>
-      <strong>
-        {{ table.getState().pagination.pageIndex + 1 }} of
-          {{ table.getPageCount() }}
-      </strong>
-    </span>
+            <div>Page</div>
+            <strong>
+                {{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }}
+            </strong>
+        </span>
         <span class="flex items-center gap-1">
-      | Go to page:
-      <input
-              shInput
-              type="number"
-              [value]="table.getState().pagination.pageIndex + 1"
-              (input)="onPageInputChange($event)"
-              class="border p-1 rounded w-16"
-      />
-    </span>
+            | Go to page:
+            <input
+                shInput
+                type="number"
+                [value]="table.getState().pagination.pageIndex + 1"
+                (input)="onPageInputChange($event)"
+                class="w-16 rounded border p-1"
+            />
+        </span>
 
-        <select
-                [value]="table.getState().pagination.pageSize"
-                (change)="onPageSizeChange($event)"
-        >
+        <select [value]="table.getState().pagination.pageSize" (change)="onPageSizeChange($event)">
             @for (pageSize of [10, 20, 30, 40, 50]; track pageSize) {
-                <option [value]="pageSize">Show {{ pageSize }}</option>
+            <option [value]="pageSize">Show {{ pageSize }}</option>
             }
         </select>
     </div>
     <div>{{ table.getPrePaginationRowModel().rows.length }} Rows</div>
     <div>
-        <button shButton (click)="refreshData()">
-            Refresh Data
-        </button>
+        <button shButton (click)="refreshData()">Refresh Data</button>
     </div>
     <div>
         <pre>{{ stringifiedFilters() }}</pre>

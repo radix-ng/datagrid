@@ -1,22 +1,31 @@
-import {ColumnDef, createAngularTable, FlexRenderDirective, getCoreRowModel} from "@tanstack/angular-table";
-import {Component, signal} from "@angular/core";
+import { Component, signal } from '@angular/core';
+
+import { ShButtonDirective } from '@radix-ng/shadcn/button';
 import {
     ShTableModule,
-    TableBodyDirective, TableCellDirective,
+    TableBodyDirective,
+    TableCellDirective,
     TableDirective,
-    TableFooterDirective, TableHeadDirective,
-    TableHeaderDirective, TableRowDirective
+    TableFooterDirective,
+    TableHeadDirective,
+    TableHeaderDirective,
+    TableRowDirective
 } from '@radix-ng/shadcn/table';
-import {ShButtonDirective} from "@radix-ng/shadcn/button";
+import {
+    ColumnDef,
+    createAngularTable,
+    FlexRenderDirective,
+    getCoreRowModel
+} from '@tanstack/angular-table';
 
 type Person = {
-    firstName: string
-    lastName: string
-    age: number
-    visits: number
-    status: string
-    progress: number
-}
+    firstName: string;
+    lastName: string;
+    age: number;
+    visits: number;
+    status: string;
+    progress: number;
+};
 
 const defaultData: Person[] = [
     {
@@ -25,7 +34,7 @@ const defaultData: Person[] = [
         age: 24,
         visits: 100,
         status: 'In Relationship',
-        progress: 50,
+        progress: 50
     },
     {
         firstName: 'tandy',
@@ -33,7 +42,7 @@ const defaultData: Person[] = [
         age: 40,
         visits: 40,
         status: 'Single',
-        progress: 80,
+        progress: 80
     },
     {
         firstName: 'joe',
@@ -41,54 +50,63 @@ const defaultData: Person[] = [
         age: 45,
         visits: 20,
         status: 'Complicated',
-        progress: 10,
-    },
-]
+        progress: 10
+    }
+];
 
 const defaultColumns: ColumnDef<Person>[] = [
     {
         accessorKey: 'firstName',
-        cell: info => info.getValue(),
-        footer: info => info.column.id,
+        cell: (info) => info.getValue(),
+        footer: (info) => info.column.id
     },
     {
-        accessorFn: row => row.lastName,
+        accessorFn: (row) => row.lastName,
         id: 'lastName',
-        cell: info => `<i>${info.getValue<string>()}</i>`,
+        cell: (info) => `<i>${info.getValue<string>()}</i>`,
         header: () => `<span>Last Name</span>`,
-        footer: info => info.column.id,
+        footer: (info) => info.column.id
     },
     {
         accessorKey: 'age',
         header: () => 'Age',
-        footer: info => info.column.id,
+        footer: (info) => info.column.id
     },
     {
         accessorKey: 'visits',
         header: () => `<span>Visits</span>`,
-        footer: info => info.column.id,
+        footer: (info) => info.column.id
     },
     {
         accessorKey: 'status',
         header: 'Status',
-        footer: info => info.column.id,
+        footer: (info) => info.column.id
     },
     {
         accessorKey: 'progress',
         header: 'Profile Progress',
-        footer: info => info.column.id,
-    },
-]
+        footer: (info) => info.column.id
+    }
+];
 
 @Component({
     selector: 'app-base',
     standalone: true,
-    imports: [FlexRenderDirective, TableDirective, TableHeaderDirective, ShButtonDirective, TableBodyDirective, TableFooterDirective, TableRowDirective, TableCellDirective, TableHeadDirective],
+    imports: [
+        FlexRenderDirective,
+        TableDirective,
+        TableHeaderDirective,
+        ShButtonDirective,
+        TableBodyDirective,
+        TableFooterDirective,
+        TableRowDirective,
+        TableCellDirective,
+        TableHeadDirective
+    ],
     templateUrl: './base.component.html'
 })
 export class BaseComponent {
-
-    data = signal<Person[]>(defaultData)
+    data = signal<Person[]>(defaultData);
 
     table = createAngularTable(() => ({
         data: this.data(),
@@ -96,10 +114,10 @@ export class BaseComponent {
         columnResizeMode: 'onChange',
         columnResizeDirection: 'ltr',
         getCoreRowModel: getCoreRowModel(),
-        debugTable: true,
-    }))
+        debugTable: true
+    }));
 
     rerender() {
-        this.data.set([...defaultData.sort(() => -1)])
+        this.data.set([...defaultData.sort(() => -1)]);
     }
 }
