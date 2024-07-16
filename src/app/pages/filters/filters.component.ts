@@ -26,6 +26,7 @@ import {
     getSortedRowModel,
     type ColumnFiltersState
 } from '@tanstack/angular-table';
+import { LucideAngularModule } from 'lucide-angular';
 
 import { FilterComponent } from './components/table-filter.component';
 import { makeData, type Person } from './makeData';
@@ -46,7 +47,8 @@ import { makeData, type Person } from './makeData';
         TableRowDirective,
         TableCellDirective,
         TableHeadDirective,
-        ShInputDirective
+        ShInputDirective,
+        LucideAngularModule
     ],
     templateUrl: './filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush

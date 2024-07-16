@@ -2,6 +2,15 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 
 import { faker } from '@faker-js/faker';
 import {
+    TableBodyDirective,
+    TableCellDirective,
+    TableDirective,
+    TableFooterDirective,
+    TableHeadDirective,
+    TableHeaderDirective,
+    TableRowDirective
+} from '@radix-ng/shadcn/table';
+import {
     ColumnDef,
     createAngularTable,
     FlexRenderDirective,
@@ -67,7 +76,16 @@ const defaultColumns: ColumnDef<Person>[] = [
 @Component({
     selector: 'app-column-ordering',
     standalone: true,
-    imports: [FlexRenderDirective],
+    imports: [
+        FlexRenderDirective,
+        TableDirective,
+        TableHeaderDirective,
+        TableRowDirective,
+        TableHeadDirective,
+        TableBodyDirective,
+        TableCellDirective,
+        TableFooterDirective
+    ],
     templateUrl: './column-ordering.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })

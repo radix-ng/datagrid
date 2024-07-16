@@ -31,12 +31,13 @@
         <button (click)="randomizeColumns()" class="border p-1">Shuffle Columns</button>
     </div>
 
-    <table>
-        <thead>
+    <div class="rounded-md border">
+        <table Table>
+        <thead TableHeader>
             @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
-            <tr>
+            <tr TableRow>
                 @for (header of headerGroup.headers; track header.id) {
-                <th [attr.colSpan]="header.colSpan">
+                <th TableHead [attr.colSpan]="header.colSpan">
                     @if (!header.isPlaceholder) {
                     <ng-container
                         *flexRender="
@@ -53,11 +54,11 @@
             </tr>
             }
         </thead>
-        <tbody>
+        <tbody TableBody>
             @for (row of table.getRowModel().rows; track row.id) {
-            <tr>
+            <tr TableRow>
                 @for (cell of row.getVisibleCells(); track cell.id) {
-                <td>
+                <td TableCell>
                     <ng-container
                         *flexRender="
                   cell.column.columnDef.cell;
@@ -72,11 +73,11 @@
             </tr>
             }
         </tbody>
-        <tfoot>
+        <tfoot TableFooter>
             @for (footerGroup of table.getFooterGroups(); track footerGroup.id) {
-            <tr>
+            <tr TableRow>
                 @for (header of footerGroup.headers; track header.id) {
-                <th [attr.colSpan]="header.colSpan">
+                <th TableHead [attr.colSpan]="header.colSpan">
                     @if (!header.isPlaceholder) {
                     <ng-container
                         *flexRender="
@@ -94,6 +95,7 @@
             }
         </tfoot>
     </table>
+    </div>
 
     <div class="h-4"></div>
     <pre>{{ stringifiedColumnOrdering() }}</pre>

@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 
-import { BaseComponent } from './base/base.component';
-import { ColumnOrderingComponent } from './column-ordering/column-ordering.component';
-import { FiltersComponent } from './filters/filters.component';
-import { RowSelectionComponent } from './row-selection/row-selection.component';
+import { BaseComponent } from './pages/base/base.component';
+import { ColumnOrderingComponent } from './pages/column-ordering/column-ordering.component';
+import { FiltersComponent } from './pages/filters/filters.component';
+import { RowSelectionComponent } from './pages/row-selection/row-selection.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: BaseComponent },

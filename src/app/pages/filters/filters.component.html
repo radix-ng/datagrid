@@ -67,39 +67,40 @@
     <div class="flex items-center gap-2">
         <button
             shButton
-            size="sm"
             variant="outline"
+            class="hidden size-8 p-0 lg:flex"
             (click)="table.setPageIndex(0)"
             [disabled]="!table.getCanPreviousPage()"
         >
-            <<
+            <lucide-icon name="chevrons-left" class="size-4"></lucide-icon>
         </button>
         <button
             shButton
-            size="sm"
+            size="icon"
+            class="size-8"
             variant="outline"
             (click)="table.previousPage()"
             [disabled]="!table.getCanPreviousPage()"
         >
-            <
+            <lucide-icon name="chevron-left" class="size-4"></lucide-icon>
         </button>
         <button
             shButton
-            size="sm"
+            class="size-8"
             variant="outline"
             (click)="table.nextPage()"
             [disabled]="!table.getCanNextPage()"
         >
-            >
+            <lucide-icon name="chevron-right" class="size-4"></lucide-icon>
         </button>
         <button
             shButton
-            size="sm"
             variant="outline"
+            class="hidden size-8 p-0 lg:flex"
             (click)="table.setPageIndex(table.getPageCount() - 1)"
             [disabled]="!table.getCanNextPage()"
         >
-            >>
+            <lucide-icon name="chevrons-right" class="h-4"></lucide-icon>
         </button>
         <span class="flex items-center gap-1">
             <div>Page</div>
