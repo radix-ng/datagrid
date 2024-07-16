@@ -10,16 +10,15 @@
                             <th TableHead [attr.colSpan]="header.colSpan">
                                 @if (!header.isPlaceholder) {
                                     <div
-                                        [ngClass]="{
-                    'cursor-pointer select-none': header.column.getCanSort(),
-                  }"
+                                        (click)="header.column.toggleSorting()"
+                                        [ngClass]="{'cursor-pointer select-none': header.column.getCanSort()}"
                                     >
                                         <ng-container
                                             *flexRender="
-                      header.column.columnDef.header;
-                      props: header.getContext();
-                      let headerCell
-                    "
+                                              header.column.columnDef.header;
+                                              props: header.getContext();
+                                              let headerCell
+                                            "
                                         >
                                             {{ headerCell }}
                                         </ng-container>

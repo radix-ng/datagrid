@@ -31,6 +31,7 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
+    SortingState,
     type ColumnFiltersState
 } from '@tanstack/angular-table';
 import { LucideAngularModule } from 'lucide-angular';
@@ -70,6 +71,8 @@ type Task = {
 })
 export class ViewComponent {
     readonly columnFilters = signal<ColumnFiltersState>([]);
+    readonly columnSorting = signal<SortingState>([]);
+
     readonly data = dataTasks as Task[];
 
     readonly titleCell = viewChild.required<TemplateRef<unknown>>('lastNameCell');
@@ -105,12 +108,18 @@ export class ViewComponent {
         columns: this.columns,
         data: this.data,
         state: {
+            sorting: this.columnSorting(),
             columnFilters: this.columnFilters()
         },
         onColumnFiltersChange: (updater) => {
             updater instanceof Function
                 ? this.columnFilters.update(updater)
                 : this.columnFilters.set(updater);
+        },
+        onSortingChange: (updater) => {
+            updater instanceof Function
+                ? this.columnSorting.update(updater)
+                : this.columnSorting.set(updater);
         },
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(), //client-side filtering
@@ -124,15 +133,11 @@ export class ViewComponent {
         debugColumns: false
     }));
 
-    readonly stringifiedFilters = computed(() => JSON.stringify(this.columnFilters(), null, 2));
-
-    onPageInputChange(event: Event): void {
-        const inputElement = event.target as HTMLInputElement;
-        const page = inputElement.value ? Number(inputElement.value) - 1 : 0;
-        this.table.setPageIndex(page);
-    }
-
     onPageSizeChange(event: any): void {
         this.table.setPageSize(Number(event.target.value));
+    }
+
+    ngOnInit() {
+        console.log(this.table.getState().sorting);
     }
 }
