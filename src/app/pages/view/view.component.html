@@ -1,0 +1,131 @@
+<div class="p-2">
+    <div class="h-2"></div>
+
+    <div class="mx-1 rounded-md border">
+        <table Table>
+            <thead TableHeader>
+                @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+                    <tr TableRow>
+                        @for (header of headerGroup.headers; track header.id) {
+                            <th TableHead [attr.colSpan]="header.colSpan">
+                                @if (!header.isPlaceholder) {
+                                    <div
+                                        [ngClass]="{
+                    'cursor-pointer select-none': header.column.getCanSort(),
+                  }"
+                                    >
+                                        <ng-container
+                                            *flexRender="
+                      header.column.columnDef.header;
+                      props: header.getContext();
+                      let headerCell
+                    "
+                                        >
+                                            {{ headerCell }}
+                                        </ng-container>
+
+                                        @if (header.column.getIsSorted() === 'asc') {
+                                            <span>🔼</span>
+                                        } @if (header.column.getIsSorted() === 'desc') {
+                                        <span>🔽</span>
+                                    }
+                                    </div>
+                                    }
+                            </th>
+                        }
+                    </tr>
+                }
+            </thead>
+            <tbody TableBody>
+                @for (row of table.getRowModel().rows; track row.id) {
+                    <tr TableRow>
+                        @for (cell of row.getVisibleCells(); track cell.id) {
+                            <td TableCell>
+                                <ng-container
+                                    *flexRender="
+                  cell.column.columnDef.cell;
+                  props: cell.getContext();
+                  let renderCell
+                "
+                                >
+                                    {{ renderCell }}
+                                </ng-container>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <ng-template #lastNameCell let-context>
+        <div class="flex space-x-2">
+            <span class="max-w-[31.25rem] truncate font-medium">
+              {{context.getValue("title")}}
+            </span>
+        </div>
+    </ng-template>
+
+    <div class="h-2"></div>
+    <div class="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
+        <div class="flex-1 whitespace-nowrap text-sm text-muted-foreground">
+            of row(s) selected.
+        </div>
+        <div class="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
+            <div class="flex items-center space-x-2">
+                <p class="whitespace-nowrap text-sm font-medium">Rows per page</p>
+                <select [value]="table.getState().pagination.pageSize" (change)="onPageSizeChange($event)">
+                    @for (pageSize of [10, 20, 30, 40, 50]; track pageSize) {
+                        <option [value]="pageSize">{{ pageSize }}</option>
+                    }
+                </select>
+            </div>
+            <div class="flex items-center justify-center text-sm font-medium">
+                Page {{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }}
+            </div>
+            <div class="flex items-center space-x-2">
+                <button
+                    shButton
+                    variant="outline"
+                    class="hidden size-8 p-0 lg:flex"
+                    (click)="table.setPageIndex(0)"
+                    [disabled]="!table.getCanPreviousPage()"
+                >
+                    <lucide-icon name="chevrons-left" class="size-4"></lucide-icon>
+                </button>
+                <button
+                    shButton
+                    size="icon"
+                    class="size-8"
+                    variant="outline"
+                    (click)="table.previousPage()"
+                    [disabled]="!table.getCanPreviousPage()"
+                >
+                    <lucide-icon name="chevron-left" class="size-4"></lucide-icon>
+                </button>
+                <button
+                    shButton
+                    class="size-8"
+                    variant="outline"
+                    (click)="table.nextPage()"
+                    [disabled]="!table.getCanNextPage()"
+                >
+                    <lucide-icon name="chevron-right" class="size-4"></lucide-icon>
+                </button>
+                <button
+                    shButton
+                    variant="outline"
+                    class="hidden size-8 p-0 lg:flex"
+                    (click)="table.setPageIndex(table.getPageCount() - 1)"
+                    [disabled]="!table.getCanNextPage()"
+                >
+                    <lucide-icon name="chevrons-right" class="h-4"></lucide-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #ageHeaderCell let-context>
+    <span>Age 🥳</span>
+</ng-template>
