@@ -2,6 +2,7 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 
 import {
+    ArrowUpDown,
     ChevronLeft,
     ChevronRight,
     ChevronsLeft,
@@ -17,7 +18,13 @@ export const appConfig: ApplicationConfig = {
         provideRouter(appRoutes),
 
         importProvidersFrom(
-            LucideAngularModule.pick({ ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight })
+            LucideAngularModule.pick({
+                ArrowUpDown,
+                ChevronsLeft,
+                ChevronLeft,
+                ChevronRight,
+                ChevronsRight
+            })
         )
     ]
 };

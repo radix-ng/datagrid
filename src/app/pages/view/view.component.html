@@ -10,7 +10,6 @@
                             <th TableHead [attr.colSpan]="header.colSpan">
                                 @if (!header.isPlaceholder) {
                                     <div
-                                        (click)="header.column.toggleSorting()"
                                         [ngClass]="{'cursor-pointer select-none': header.column.getCanSort()}"
                                     >
                                         <ng-container
@@ -20,14 +19,15 @@
                                               let headerCell
                                             "
                                         >
-                                            {{ headerCell }}
-                                        </ng-container>
+                                            <button shButton
+                                                    variant="ghost"
+                                                    (click)="header.column.toggleSorting(header.column.getIsSorted() === 'asc')"
+                                            >
+                                                {{ headerCell }}
+                                                <lucide-angular name="ArrowUpDown" class="ml-2 h-4 w-4"></lucide-angular>
+                                            </button>
 
-                                        @if (header.column.getIsSorted() === 'asc') {
-                                            <span>🔼</span>
-                                        } @if (header.column.getIsSorted() === 'desc') {
-                                        <span>🔽</span>
-                                    }
+                                        </ng-container>
                                     </div>
                                     }
                             </th>
