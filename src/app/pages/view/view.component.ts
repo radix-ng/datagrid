@@ -1,12 +1,5 @@
 import { NgClass } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    signal,
-    TemplateRef,
-    viewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, TemplateRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ShButtonDirective } from '@radix-ng/shadcn/button';
@@ -23,6 +16,7 @@ import {
 import {
     ColumnDef,
     createAngularTable,
+    FlexRenderComponent,
     FlexRenderDirective,
     getCoreRowModel,
     getFacetedMinMaxValues,
@@ -37,6 +31,7 @@ import {
 import { LucideAngularModule } from 'lucide-angular';
 
 import dataTasks from '../../../../public/data/tasks.json';
+import { ViewTableRowSelectionComponent } from './components/selection-column.component';
 import { FilterComponent } from './components/table-filter.component';
 
 type Task = {
@@ -78,6 +73,12 @@ export class ViewComponent {
     readonly titleCell = viewChild.required<TemplateRef<unknown>>('lastNameCell');
 
     readonly columns: ColumnDef<Task>[] = [
+        {
+            id: 'select',
+            cell: () => {
+                return new FlexRenderComponent(ViewTableRowSelectionComponent);
+            }
+        },
         {
             accessorKey: 'id',
             header: () => 'Task',

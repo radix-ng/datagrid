@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import {
     ArrowUpDown,
+    Check,
     ChevronLeft,
     ChevronRight,
     ChevronsLeft,
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
 
         importProvidersFrom(
             LucideAngularModule.pick({
+                Check,
                 ArrowUpDown,
                 ChevronsLeft,
                 ChevronLeft,

@@ -68,7 +68,7 @@
     <div class="h-2"></div>
     <div class="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
         <div class="flex-1 whitespace-nowrap text-sm text-muted-foreground">
-            of row(s) selected.
+            {{ table.getFilteredSelectedRowModel().rows.length }} of  {{ table.getFilteredRowModel().rows.length }} row(s) selected.
         </div>
         <div class="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
             <div class="flex items-center space-x-2">
