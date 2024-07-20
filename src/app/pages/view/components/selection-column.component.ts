@@ -12,7 +12,7 @@ import {
         <sh-checkbox
             aria-label="Select all"
             [indeterminate]="
-                context.table.getIsAllPageRowsSelected() ||
+                (!context.table.getIsAllRowsSelected && context.table.getIsAllPageRowsSelected()) ||
                 context.table.getIsSomePageRowsSelected()
             "
             (checkedChange)="onCheckedChange($event)"
