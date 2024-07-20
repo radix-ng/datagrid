@@ -31,7 +31,10 @@ import {
 import { LucideAngularModule } from 'lucide-angular';
 
 import dataTasks from '../../../../public/data/tasks.json';
-import { ViewTableRowSelectionComponent } from './components/selection-column.component';
+import {
+    ViewTableHeadSelectionComponent,
+    ViewTableRowSelectionComponent
+} from './components/selection-column.component';
 import { FilterComponent } from './components/table-filter.component';
 
 type Task = {
@@ -75,6 +78,9 @@ export class ViewComponent {
     readonly columns: ColumnDef<Task>[] = [
         {
             id: 'select',
+            header: () => {
+                return new FlexRenderComponent(ViewTableHeadSelectionComponent);
+            },
             cell: () => {
                 return new FlexRenderComponent(ViewTableRowSelectionComponent);
             }
@@ -136,9 +142,5 @@ export class ViewComponent {
 
     onPageSizeChange(event: any): void {
         this.table.setPageSize(Number(event.target.value));
-    }
-
-    ngOnInit() {
-        console.log(this.table.getState().sorting);
     }
 }

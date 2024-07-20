@@ -8,7 +8,8 @@ import {
     ChevronRight,
     ChevronsLeft,
     ChevronsRight,
-    LucideAngularModule
+    LucideAngularModule,
+    Minus
 } from 'lucide-angular';
 
 import { appRoutes } from './app.routes';
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
         importProvidersFrom(
             LucideAngularModule.pick({
                 Check,
+                Minus,
                 ArrowUpDown,
                 ChevronsLeft,
                 ChevronLeft,
