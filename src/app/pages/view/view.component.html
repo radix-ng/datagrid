@@ -1,7 +1,19 @@
-<div class="p-2">
-    <div class="h-2"></div>
-
-    <div class="mx-1 rounded-md border">
+<div class="space-y-4">
+    <!--    DataTableToolbar-->
+    <div class="flex items-center justify-between">
+        <div class="flex flex-1 items-center space-x-2">
+            <input
+                shInput
+                type="text"
+                placeholder="Filter tasks..."
+                class="h-8 w-[150px] lg:w-[250px]"
+                [ngModel]="table.getColumn('title')?.getFilterValue() ?? ''"
+                (ngModelChange)="onFilterTasksChange($event)"
+            />
+        </div>
+    </div>
+    <!--  End  DataTableToolbar-->
+    <div class="rounded-md border">
         <table Table>
             <thead TableHeader>
                 @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
@@ -24,12 +36,13 @@
                                                     (click)="header.column.toggleSorting(header.column.getIsSorted() === 'asc')"
                                             >
                                                 {{ headerCell }}
-                                                <lucide-angular name="ArrowUpDown" class="ml-2 h-4 w-4"></lucide-angular>
+                                                <lucide-angular name="ArrowUpDown"
+                                                                class="ml-2 h-4 w-4"></lucide-angular>
                                             </button>
 
                                         </ng-container>
                                     </div>
-                                    }
+                                }
                             </th>
                         }
                     </tr>
@@ -60,20 +73,23 @@
     <ng-template #lastNameCell let-context>
         <div class="flex space-x-2">
             <span class="max-w-[31.25rem] truncate font-medium">
-              {{context.getValue("title")}}
+              {{ context.getValue("title") }}
             </span>
         </div>
     </ng-template>
 
     <div class="h-2"></div>
-    <div class="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
+    <div
+        class="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
         <div class="flex-1 whitespace-nowrap text-sm text-muted-foreground">
-            {{ table.getFilteredSelectedRowModel().rows.length }} of  {{ table.getFilteredRowModel().rows.length }} row(s) selected.
+            {{ table.getFilteredSelectedRowModel().rows.length }}
+            of  {{ table.getFilteredRowModel().rows.length }} row(s) selected.
         </div>
         <div class="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
             <div class="flex items-center space-x-2">
                 <p class="whitespace-nowrap text-sm font-medium">Rows per page</p>
-                <select [value]="table.getState().pagination.pageSize" (change)="onPageSizeChange($event)">
+                <select [value]="table.getState().pagination.pageSize"
+                        (change)="onPageSizeChange($event)">
                     @for (pageSize of [10, 20, 30, 40, 50]; track pageSize) {
                         <option [value]="pageSize">{{ pageSize }}</option>
                     }

@@ -143,4 +143,8 @@ export class ViewComponent {
     onPageSizeChange(event: any): void {
         this.table.setPageSize(Number(event.target.value));
     }
+
+    onFilterTasksChange(data: any): void {
+        this.table.getColumn('title')?.setFilterValue(data);
+    }
 }
