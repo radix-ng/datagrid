@@ -21,25 +21,19 @@
                         @for (header of headerGroup.headers; track header.id) {
                             <th TableHead [attr.colSpan]="header.colSpan">
                                 @if (!header.isPlaceholder) {
-                                    <div
-                                        [ngClass]="{'cursor-pointer select-none': header.column.getCanSort()}"
-                                    >
+                                    <div [ngClass]="{'cursor-pointer select-none': header.column.getCanSort()}">
                                         <ng-container
                                             *flexRender="
                                               header.column.columnDef.header;
                                               props: header.getContext();
                                               let headerCell
-                                            "
-                                        >
+                                            ">
                                             <button shButton
                                                     variant="ghost"
-                                                    (click)="header.column.toggleSorting(header.column.getIsSorted() === 'asc')"
-                                            >
+                                                    (click)="header.column.toggleSorting(header.column.getIsSorted() === 'asc')">
                                                 {{ headerCell }}
-                                                <lucide-angular name="ArrowUpDown"
-                                                                class="ml-2 h-4 w-4"></lucide-angular>
+                                                <lucide-angular name="ArrowUpDown" class="ml-2 h-4 w-4"></lucide-angular>
                                             </button>
-
                                         </ng-container>
                                     </div>
                                 }
@@ -55,11 +49,10 @@
                             <td TableCell>
                                 <ng-container
                                     *flexRender="
-                  cell.column.columnDef.cell;
-                  props: cell.getContext();
-                  let renderCell
-                "
-                                >
+                                      cell.column.columnDef.cell;
+                                      props: cell.getContext();
+                                      let renderCell
+                                    ">
                                     {{ renderCell }}
                                 </ng-container>
                             </td>
@@ -73,7 +66,7 @@
     <ng-template #lastNameCell let-context>
         <div class="flex space-x-2">
             <span class="max-w-[31.25rem] truncate font-medium">
-              {{ context.getValue("title") }}
+              {{ context.getValue() }}
             </span>
         </div>
     </ng-template>

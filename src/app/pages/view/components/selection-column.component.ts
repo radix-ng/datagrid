@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ShCheckboxComponent } from '@radix-ng/shadcn/checkbox';
 import {

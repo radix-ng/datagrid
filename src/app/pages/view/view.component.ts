@@ -32,18 +32,12 @@ import { LucideAngularModule } from 'lucide-angular';
 
 import dataTasks from '../../../../public/data/tasks.json';
 import {
+    FilterComponent,
     ViewTableHeadSelectionComponent,
-    ViewTableRowSelectionComponent
-} from './components/selection-column.component';
-import { FilterComponent } from './components/table-filter.component';
-
-type Task = {
-    id: string;
-    title: string;
-    status: string;
-    label: string;
-    priority: string;
-};
+    ViewTableRowSelectionComponent,
+    ViewTitleRowComponent
+} from './components';
+import { Task } from './types';
 
 @Component({
     selector: 'app-views',
@@ -93,7 +87,9 @@ export class ViewComponent {
         {
             accessorKey: 'title',
             header: () => 'Title',
-            cell: (info) => this.titleCell(),
+            cell: (info) => {
+                return new FlexRenderComponent(ViewTitleRowComponent);
+            },
             enableSorting: true
         },
         {
