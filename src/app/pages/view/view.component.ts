@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal, TemplateRef, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ShButtonDirective } from '@radix-ng/shadcn/button';
@@ -66,8 +66,6 @@ export class ViewComponent {
     readonly columnSorting = signal<SortingState>([]);
 
     readonly data = dataTasks as Task[];
-
-    readonly titleCell = viewChild.required<TemplateRef<unknown>>('lastNameCell');
 
     readonly columns: ColumnDef<Task>[] = [
         {

@@ -1,4 +1,5 @@
 <div class="space-y-4">
+
     <!--    DataTableToolbar-->
     <div class="flex items-center justify-between">
         <div class="flex flex-1 items-center space-x-2">
@@ -13,6 +14,7 @@
         </div>
     </div>
     <!--  End  DataTableToolbar-->
+
     <div class="rounded-md border">
         <table Table>
             <thead TableHeader>
@@ -63,15 +65,8 @@
         </table>
     </div>
 
-    <ng-template #lastNameCell let-context>
-        <div class="flex space-x-2">
-            <span class="max-w-[31.25rem] truncate font-medium">
-              {{ context.getValue() }}
-            </span>
-        </div>
-    </ng-template>
-
     <div class="h-2"></div>
+
     <div
         class="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
         <div class="flex-1 whitespace-nowrap text-sm text-muted-foreground">
@@ -133,7 +128,3 @@
         </div>
     </div>
 </div>
-
-<ng-template #ageHeaderCell let-context>
-    <span>Age 🥳</span>
-</ng-template>
