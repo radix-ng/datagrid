@@ -2,7 +2,12 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { RdxDropdownMenuTriggerDirective } from '@radix-ng/primitives/dropdown-menu';
 import { ShButtonDirective } from '@radix-ng/shadcn/button';
+import {
+    ShDropdownMenuCheckboxItemComponent,
+    ShDropdownMenuContentComponent
+} from '@radix-ng/shadcn/dropdown-menu';
 import { ShInputDirective } from '@radix-ng/shadcn/input';
 import {
     TableBodyDirective,
@@ -50,13 +55,16 @@ import { Task } from './types';
         TableDirective,
         TableHeaderDirective,
         ShButtonDirective,
+        ShDropdownMenuContentComponent,
+        ShDropdownMenuCheckboxItemComponent,
         TableBodyDirective,
         TableFooterDirective,
         TableRowDirective,
         TableCellDirective,
         TableHeadDirective,
         ShInputDirective,
-        LucideAngularModule
+        LucideAngularModule,
+        RdxDropdownMenuTriggerDirective
     ],
     templateUrl: './view.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -140,5 +148,9 @@ export class ViewComponent {
 
     onFilterTasksChange(data: any): void {
         this.table.getColumn('title')?.setFilterValue(data);
+    }
+
+    onColumnVisibilityChange($event: any, column: any): void {
+        column.toggleVisibility(!!$event);
     }
 }

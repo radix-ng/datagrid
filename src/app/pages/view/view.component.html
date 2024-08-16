@@ -1,16 +1,31 @@
-<div class="space-y-4">
+<div class="space-y-4 w-full">
 
     <!--    DataTableToolbar-->
     <div class="flex items-center justify-between">
-        <div class="flex flex-1 items-center space-x-2">
+        <div class="flex items-center py-4 w-full">
             <input
                 shInput
                 type="text"
                 placeholder="Filter tasks..."
-                class="h-8 w-[150px] lg:w-[250px]"
+                class="w-[150px] lg:w-[250px]"
                 [ngModel]="table.getColumn('title')?.getFilterValue() ?? ''"
                 (ngModelChange)="onFilterTasksChange($event)"
             />
+
+            <button shButton variant="outline" class="ml-auto" [rdxDropdownMenuTrigger]="menu">
+                Columns
+                <lucide-angular name="ChevronDown" class="ml-2 h-4 w-4"/>
+            </button>
+
+            <ng-template #menu>
+                <shDropdownMenuContent class="w-56">
+                    @for (column of table.getAllColumns(); track column.id) {
+                        <shDropdownMenuCheckboxItem [checked]="column.getIsVisible()" (checkedChange)="onColumnVisibilityChange($event, column)">
+                            {{ column.id}}
+                        </shDropdownMenuCheckboxItem>
+                    }
+                </shDropdownMenuContent>
+            </ng-template>
         </div>
     </div>
     <!--  End  DataTableToolbar-->
@@ -34,7 +49,7 @@
                                                     variant="ghost"
                                                     (click)="header.column.toggleSorting(header.column.getIsSorted() === 'asc')">
                                                 {{ headerCell }}
-                                                <lucide-angular name="ArrowUpDown" class="ml-2 h-4 w-4"></lucide-angular>
+                                                <lucide-angular name="ArrowUpDown" class="ml-2 h-4 w-4"/>
                                             </button>
                                         </ng-container>
                                     </div>

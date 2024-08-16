@@ -1,71 +1,82 @@
 {
-  "name": "datagrid",
-  "$schema": "node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "./src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/datagrid",
-        "index": "./src/index.html",
-        "browser": "./src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "tsconfig.app.json",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "public"
-          }
-        ],
-        "styles": ["./src/styles.css"],
-        "scripts": []
-      },
-      "configurations": {
-        "production": {
-          "outputHashing": "all"
+    "name": "datagrid",
+    "$schema": "node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "./src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:application",
+            "outputs": [
+                "{options.outputPath}"
+            ],
+            "options": {
+                "outputPath": "dist/datagrid",
+                "index": "./src/index.html",
+                "browser": "./src/main.ts",
+                "polyfills": [
+                    "zone.js"
+                ],
+                "tsConfig": "tsconfig.app.json",
+                "assets": [
+                    {
+                        "glob": "**/*",
+                        "input": "public"
+                    }
+                ],
+                "styles": [
+                    "./src/styles.css",
+                    "@angular/cdk/overlay-prebuilt.css"
+                ],
+                "scripts": []
+            },
+            "configurations": {
+                "production": {
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true
+                }
+            },
+            "defaultConfiguration": "production"
         },
-        "development": {
-          "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "datagrid:build:production"
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "datagrid:build:production"
+                },
+                "development": {
+                    "buildTarget": "datagrid:build:development"
+                }
+            },
+            "defaultConfiguration": "development"
         },
-        "development": {
-          "buildTarget": "datagrid:build:development"
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "buildTarget": "datagrid:build"
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "options": {
+                "lintFilePatterns": [
+                    "./src"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": [
+                "{workspaceRoot}/coverage/{projectName}"
+            ],
+            "options": {
+                "jestConfig": "jest.config.ts"
+            }
         }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "datagrid:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["./src"]
-      }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
-      "options": {
-        "jestConfig": "jest.config.ts"
-      }
     }
-  }
 }

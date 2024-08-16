@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import {
     ArrowUpDown,
     Check,
+    ChevronDown,
     ChevronLeft,
     ChevronRight,
     ChevronsLeft,
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
                 ArrowUpDown,
                 ChevronsLeft,
                 ChevronLeft,
+                ChevronDown,
                 ChevronRight,
                 ChevronsRight
             })
