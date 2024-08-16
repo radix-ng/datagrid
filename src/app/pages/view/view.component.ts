@@ -19,6 +19,7 @@ import {
     TableRowDirective
 } from '@radix-ng/shadcn/table';
 import {
+    Column,
     ColumnDef,
     createAngularTable,
     FlexRenderComponent,
@@ -83,12 +84,14 @@ export class ViewComponent {
             },
             cell: () => {
                 return new FlexRenderComponent(ViewTableRowSelectionComponent);
-            }
+            },
+            enableHiding: false
         },
         {
             accessorKey: 'id',
             header: () => 'Task',
-            cell: (info) => info.getValue()
+            cell: (info) => info.getValue(),
+            enableHiding: false
         },
         {
             accessorKey: 'title',
@@ -152,5 +155,9 @@ export class ViewComponent {
 
     onColumnVisibilityChange($event: any, column: any): void {
         column.toggleVisibility(!!$event);
+    }
+
+    filterHideColumns(): Column<Task, unknown>[] {
+        return this.table.getAllColumns().filter((column) => column.getCanHide());
     }
 }

@@ -12,16 +12,16 @@
                 (ngModelChange)="onFilterTasksChange($event)"
             />
 
-            <button shButton variant="outline" class="ml-auto" [rdxDropdownMenuTrigger]="menu">
+            <button shButton variant="outline" class="ml-auto" [rdxDropdownMenuTrigger]="menu" sideOffset="4" alignOffset="-5">
                 Columns
                 <lucide-angular name="ChevronDown" class="ml-2 h-4 w-4"/>
             </button>
 
             <ng-template #menu>
                 <shDropdownMenuContent class="w-56">
-                    @for (column of table.getAllColumns(); track column.id) {
+                    @for (column of filterHideColumns(); track column.id) {
                         <shDropdownMenuCheckboxItem [checked]="column.getIsVisible()" (checkedChange)="onColumnVisibilityChange($event, column)">
-                            {{ column.id}}
+                            {{ column.id }}
                         </shDropdownMenuCheckboxItem>
                     }
                 </shDropdownMenuContent>
